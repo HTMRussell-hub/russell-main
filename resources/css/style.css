@@ -1,0 +1,68 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Creating the dark space/nebula background effect */
+    background: radial-gradient(circle at bottom right, #5e2a84, #000000 50%);
+    background-color: #000;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 50px;
+    opacity: 0.9;
+}
+
+.link-list {
+    list-style: none;
+    text-align: left;
+    display: inline-block; /* Centers the list block but keeps text left-aligned */
+}
+
+.link-list li {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.link-list a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link-list a:hover {
+    color: #b163ff; /* Adds a purple glow on hover */
+}
+
+/* Bullet point styling to match your screenshot */
+.link-list li::before {
+    content: "•";
+    color: white;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+}
