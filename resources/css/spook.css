@@ -1,0 +1,107 @@
+/* 90s Web Layout */
+body {
+    background-image: url('./resources/images/WesternDark.jpeg');
+    background-attachment: fixed;
+    background-color: #000; /* Fallback */
+    color: #00FF00; /* Classic Terminal Green */
+    font-family: "Courier New", Courier, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+#main-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.85); /* Dark transparency for readability */
+    border: 3px double #00FF00;
+    padding: 20px;
+    box-shadow: 0 0 15px #00FF00;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #00FF00;
+    padding-bottom: 10px;
+}
+
+h1, h2, h3 {
+    text-transform: uppercase;
+}
+
+.title-glow {
+    color: #FF0000;
+    text-shadow: 2px 2px #550000;
+}
+
+.blink {
+    color: yellow;
+    font-weight: bold;
+    text-decoration: underline;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.content-box, .history-box {
+    margin: 20px 0;
+    line-height: 1.6;
+    border-bottom: 1px dashed #00FF00;
+    padding-bottom: 20px;
+}
+
+.duality-container {
+    display: flex;
+    justify-content: space-around;
+    background: #111;
+    border: 1px solid #444;
+    padding: 10px;
+}
+
+.blessing { color: #00AAFF; }
+.curse { color: #FF4444; }
+
+.warning-box {
+    background: #FF0000;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border: 5px solid yellow;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.video-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.video-container {
+    border: 5px groove #888;
+    display: inline-block;
+    padding: 10px;
+    background: #000;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 30px;
+    color: #888;
+}
+
+.visitor-counter {
+    background: #222;
+    color: red;
+    padding: 5px;
+    display: inline-block;
+    font-family: 'Digital-7', monospace; /* Fallback to monospace */
+    border: 1px solid #555;
+    margin-top: 10px;
+}
+
+hr {
+    border: 1px solid #00FF00;
+}
