@@ -1,6 +1,6 @@
 /* 90s Web Layout */
 body {
-    background-image: url('./resources/images/WesternDark.jpeg');
+    background-image: url('../images/WesternDark.jpeg');
     background-attachment: fixed;
     background-color: #000; /* Fallback */
     color: #00FF00; /* Classic Terminal Green */

@@ -7,7 +7,7 @@
 
 body {
     /* Background setup */
-    background-image: url('./resources/images/russell-story-background.jpeg');
+    background-image: url('../images/russell-story-background.jpeg');
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
