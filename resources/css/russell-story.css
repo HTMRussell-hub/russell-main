@@ -1,0 +1,93 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Background setup */
+    background-image: url('./resources/images/russell-story-background.jpeg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    background-color: #000; /* Fallback */
+    
+    color: #3182ce; /* Similar blue to your links */
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 5rem;
+    color: #3182ce; /* Bright blue from image */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #48bb78; /* Greenish-teal from mockup */
+    font-weight: 500;
+}
+
+/* Main Layout - Flexbox used to align links and image side-by-side */
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+/* Links Section */
+.links-section ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.links-section li {
+    margin-bottom: 15px;
+}
+
+.links-section a {
+    color: #3182ce;
+    text-decoration: none;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+}
+
+.links-section a:hover {
+    color: #63b3ed;
+    text-decoration: underline;
+}
+
+/* Image Section */
+.book-image {
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .main-title {
+        font-size: 3rem;
+    }
+}

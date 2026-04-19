@@ -66,3 +66,32 @@ h2 {
     width: 1em;
     margin-left: -1em;
 }
+
+/* Navigation Styling */
+.top-nav {
+    position: absolute; /* Allows placement in the top left corner */
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+}
+
+.top-nav a {
+    font-family: 'Orbitron', sans-serif; /* Keeps the sci-fi/tech theme */
+    color: #3182ce; /* Matching the blue from your story page */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.top-nav a:hover {
+    color: #48bb78; /* Changes to green on hover */
+    text-shadow: 0 0 8px rgba(72, 187, 120, 0.6);
+}
+
+/* Ensure the container doesn't overlap on small screens */
+.container {
+    margin-top: 60px; 
+}
