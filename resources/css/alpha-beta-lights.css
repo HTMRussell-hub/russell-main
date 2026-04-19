@@ -1,0 +1,116 @@
+/* Retro Web 1.0 Stylesheet */
+
+body {
+    background-color: #000000;
+    color: #C0C0C0;
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.4;
+}
+
+#page-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 3px double #808080;
+    padding: 15px;
+    background-color: #1a1a1a;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #ff0000;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+h1 {
+    color: #00FF00;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 10px 0;
+    text-shadow: 2px 2px #555;
+}
+
+.marquee-sim {
+    background: #333;
+    color: #FFFF00;
+    padding: 5px;
+    font-weight: bold;
+    border: 1px solid #FFFF00;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #00FFFF;
+    border-bottom: 1px dashed #00FFFF;
+    font-size: 24px;
+}
+
+.content-box {
+    background-color: #000000;
+    border: 1px solid #444;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Orb Color Highlights */
+.highlight-red { color: #FF0000; font-weight: bold; }
+.highlight-green { color: #00FF00; font-weight: bold; }
+.highlight-blue { color: #0000FF; font-weight: bold; }
+
+.sidebar {
+    float: right;
+    width: 200px;
+    border: 1px solid #00FF00;
+    padding: 10px;
+    margin-left: 15px;
+    font-size: 14px;
+    background-color: #080808;
+}
+
+.footer {
+    clear: both;
+    text-align: center;
+    border-top: 2px solid #ff0000;
+    padding-top: 20px;
+    margin-top: 30px;
+}
+
+.link-button {
+    background-color: #c0c0c0;
+    color: #000;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 2px outset #ffffff;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.link-button:active {
+    border: 2px inset #ffffff;
+}
+
+.blink-sim {
+    color: #FF00FF;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.video-section {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px dashed #FFFF00;
+}
+
+.video-alert {
+    color: #FFFF00;
+    font-weight: bold;
+}
