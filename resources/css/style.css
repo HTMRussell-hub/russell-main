@@ -6,22 +6,23 @@
 }
 
 body {
-    /* Creating the dark space/nebula background effect */
     background: radial-gradient(circle at bottom right, #5e2a84, #000000 50%);
     background-color: #000;
     color: white;
     font-family: 'Orbitron', sans-serif;
-    min-height: 100vh; /* Changed from height to min-height */
+    min-height: 100vh;
     display: flex;
-    flex-direction: column; /* THIS STACKS THE TEXT AND IMAGE */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px; /* Prevents text from touching screen edges */
 }
 
 .container {
+    width: 100%;
     max-width: 900px;
-    padding: 20px;
+    margin-top: 60px; 
 }
 
 h1 {
@@ -29,6 +30,7 @@ h1 {
     text-transform: uppercase;
     margin-bottom: 20px;
     letter-spacing: 2px;
+    line-height: 1.1; /* Better spacing for wrapped text */
 }
 
 h2 {
@@ -38,10 +40,18 @@ h2 {
     opacity: 0.9;
 }
 
+/* Fix for ALL images (including your puzzle) */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
 .link-list {
     list-style: none;
     text-align: left;
-    display: inline-block; /* Centers the list block but keeps text left-aligned */
+    display: inline-block;
 }
 
 .link-list li {
@@ -56,10 +66,9 @@ h2 {
 }
 
 .link-list a:hover {
-    color: #b163ff; /* Adds a purple glow on hover */
+    color: #b163ff;
 }
 
-/* Bullet point styling to match your screenshot */
 .link-list li::before {
     content: "•";
     color: white;
@@ -70,66 +79,52 @@ h2 {
 
 /* Navigation Styling */
 .top-nav {
-    position: absolute; /* Allows placement in the top left corner */
+    position: absolute;
     top: 20px;
     left: 20px;
     padding: 10px;
+    z-index: 10; /* Ensures it stays on top */
 }
 
 .top-nav a {
-    font-family: 'Orbitron', sans-serif; /* Keeps the sci-fi/tech theme */
-    color: #3182ce; /* Matching the blue from your story page */
+    color: #3182ce;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
     transition: color 0.3s ease;
-}
-
-.top-nav a:hover {
-    color: #48bb78; /* Changes to green on hover */
-    text-shadow: 0 0 8px rgba(72, 187, 120, 0.6);
-}
-
-/* Ensure the container doesn't overlap on small screens */
-.container {
-    margin-top: 60px; 
 }
 
 /* Mobile Responsiveness Improvements */
 @media (max-width: 600px) {
+    body {
+        justify-content: flex-start; /* Stacks from the top on small screens */
+        padding-top: 40px;
+    }
+
     h1 {
-        font-size: 1.8rem; /* Shrinks the main title so it doesn't wrap awkwardly */
+        font-size: 1.8rem; /* Dramatically smaller so "RUSSELL'S WEBSITE" fits */
         letter-spacing: 1px;
     }
 
     h2 {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
     }
 
     .container {
-        padding: 15px;
-        width: 100%; /* Ensures the container uses available width */
+        margin-top: 40px;
+        padding: 10px;
     }
 
     .link-list li {
-        font-size: 1.1rem; /* Makes links more readable on small screens */
-    }
-
-    /* Fix for the Puzzle Image */
-    img, .puzzle-image-class { 
-        max-width: 100%; /* Prevents the image from being wider than the screen */
-        height: auto;    /* Maintains aspect ratio */
-        display: block;
-        margin: 0 auto;
+        font-size: 1rem;
     }
 
     .top-nav {
-        position: relative; /* Moves 'STORIES' into the flow so it doesn't overlap text */
+        position: relative; /* Takes it out of absolute positioning to prevent overlap */
         top: 0;
         left: 0;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 }
