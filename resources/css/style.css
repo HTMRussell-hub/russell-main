@@ -96,3 +96,40 @@ h2 {
 .container {
     margin-top: 60px; 
 }
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem; /* Shrinks the main title so it doesn't wrap awkwardly */
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+    .container {
+        padding: 15px;
+        width: 100%; /* Ensures the container uses available width */
+    }
+
+    .link-list li {
+        font-size: 1.1rem; /* Makes links more readable on small screens */
+    }
+
+    /* Fix for the Puzzle Image */
+    img, .puzzle-image-class { 
+        max-width: 100%; /* Prevents the image from being wider than the screen */
+        height: auto;    /* Maintains aspect ratio */
+        display: block;
+        margin: 0 auto;
+    }
+
+    .top-nav {
+        position: relative; /* Moves 'STORIES' into the flow so it doesn't overlap text */
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+    }
+}
