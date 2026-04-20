@@ -11,8 +11,9 @@ body {
     background-color: #000;
     color: white;
     font-family: 'Orbitron', sans-serif;
-    height: 100vh;
+    min-height: 100vh; /* Changed from height to min-height */
     display: flex;
+    flex-direction: column; /* THIS STACKS THE TEXT AND IMAGE */
     justify-content: center;
     align-items: center;
     text-align: center;
