@@ -1,0 +1,139 @@
+body {
+    /* A deep turquoise to ocean blue gradient for that tropical 90s feel */
+    background: linear-gradient(180deg, #008080 0%, #000080 100%);
+    background-attachment: fixed;
+    color: #f0f8ff; /* AliceBlue - a very light, crisp water-white */
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+#container {
+    width: 85%;
+    margin: 0 auto;
+    /* A "ridged" border looks very old-school Windows/HTML */
+    border: 5px ridged #00FFFF; 
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.4); /* Transparent black to let the ocean blue peek through */
+    box-shadow: 10px 10px 0px #004040; /* Retro hard shadow */
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px dashed #FFFF00;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.banner {
+    width: 100%;
+    max-width: 800px;
+    border: 3px solid #FFFFFF;
+    /* This adds a slight "glow" effect */
+    box-shadow: 0 0 15px #00FFFF;
+}
+
+h1 {
+    font-size: 28px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px #000080;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #FFFF00; /* Sandy Yellow for subheaders */
+    border-bottom: 1px solid #00FFFF;
+    margin-top: 30px;
+    padding-bottom: 5px;
+}
+
+marquee {
+    background-color: #004040;
+    color: #FFFF00;
+    padding: 8px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #FFFFFF;
+}
+
+p {
+    line-height: 1.7;
+    font-size: 17px;
+    /* Text shadow improves readability on colored backgrounds */
+    text-shadow: 1px 1px 1px #000;
+}
+
+.dateline {
+    font-weight: bold;
+    color: #00FFFF; /* Bright Cyan */
+}
+
+.intro {
+    font-style: italic;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-left: 5px solid #FFFF00;
+}
+
+/* Links that actually look like 90s links */
+a {
+    color: #FFFF00;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #FFFFFF;
+    background-color: #008080;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    border-top: 2px dashed #FFFF00;
+    padding-top: 20px;
+}
+
+.visitor-counter {
+    background-color: #000;
+    color: #00FF00; /* Keep the classic green counter */
+    border: 2px outset #888;
+    display: inline-block;
+    padding: 5px 15px;
+    font-family: "Courier New", monospace;
+}
+
+.copyright {
+    color: #d1d1d1;
+    font-size: 11px;
+}
+
+.video-vault {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgba(0, 255, 255, 0.1);
+    border: 2px dashed #FFFF00;
+}
+
+.video-frame {
+    display: inline-block;
+    padding: 10px;
+    background-color: #333; /* Dark "monitor" casing */
+    border: 4px outset #888; /* Beveled edge */
+    box-shadow: 0px 0px 20px #00FFFF;
+    margin-bottom: 10px;
+}
+
+/* Make sure the iframe doesn't break the container on smaller screens */
+.video-frame iframe {
+    max-width: 100%;
+    border: 1px solid #000;
+}
+
+.video-caption {
+    font-size: 14px;
+    color: #FFFF00;
+    font-weight: bold;
+    text-shadow: none;
+}
