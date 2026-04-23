@@ -60,13 +60,14 @@ img {
 }
 
 .link-list a {
-    color: #ffffff;
+    color: #0feb2c;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .link-list a:hover {
     color: #b163ff;
+    text-decoration: underline;
 }
 
 .link-list li::before {
@@ -86,6 +87,11 @@ img {
     z-index: 10; /* Ensures it stays on top */
 }
 
+.top-nav:hover {
+    color: orange;
+    text-decoration: underline;
+}
+
 .top-nav a {
     color: #3182ce;
     text-decoration: none;
@@ -93,6 +99,10 @@ img {
     font-size: 1.1rem;
     text-transform: uppercase;
     transition: color 0.3s ease;
+}
+
+.top-nav a:hover {
+    color: #ef5609;
 }
 
 /* Mobile Responsiveness Improvements */
@@ -127,4 +137,8 @@ img {
         left: 0;
         margin-bottom: 10px;
     }
+}
+
+#answer:hover {
+    cursor: help;
 }
