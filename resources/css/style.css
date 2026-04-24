@@ -67,7 +67,11 @@ img {
 
 .link-list a:hover {
     color: #b163ff;
-    text-decoration: underline;
+    text-decoration: underlineUpdat;
+}
+
+.link-list a:active {
+    color: #d50e18;
 }
 
 .link-list li::before {
@@ -103,6 +107,10 @@ img {
 
 .top-nav a:hover {
     color: #ef5609;
+}
+
+.top-nav a:active {
+    color: rgb(11, 229, 22);
 }
 
 /* Mobile Responsiveness Improvements */
