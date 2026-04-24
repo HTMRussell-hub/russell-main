@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev by Russell</title>
+    <link rel="stylesheet" href="./resources/css/dev.css">
+</head>
+<body>
+<h3>Skeuomorphic Button</h3>
+<button class="skeuomorphic-button" id="youtubeButton" title="Leaves Webpage and Goes to My Youtube Channel">Goes to My Youtube Channel</button>
+
+<nav class="bottom-nav">
+    <a href="./index.html" title="Back to Home">Home</a>
+</nav>
+
+<script>
+    const button = document.getElementById('youtubeButton');
+    
+    button.addEventListener('click', function() {
+        window.location.href = 'https://youtube.com/@TnRinVegas';
+    });
+</script>
+
+</body>
+</html>

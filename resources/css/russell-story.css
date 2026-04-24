@@ -122,3 +122,30 @@ header {
     margin-top: 20px;
     letter-spacing: 1px;
 }
+
+.featured-link {
+    display: inline-block;
+    border: 2px solid #3182ce;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background: rgba(49, 130, 206, 0.1);
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px #3182ce; }
+    50% { box-shadow: 0 0 20px #3182ce; }
+    100% { box-shadow: 0 0 5px #3182ce; }
+}
+
+.new-badge {
+    background-color: #ef5609; /* Matches your orange hover color */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    box-shadow: 0 0 8px rgba(239, 86, 9, 0.6);
+}
