@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    /* Using 'Roboto Flex' as the reliable Google Sans alternative */
+    font-family: 'Roboto Flex', 'Google Sans', sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.4;
+    margin: 0;
+    padding: 20px;
+    /* This ensures we use the variable font capabilities */
+    font-variation-settings: "wdth" 100; 
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 5px solid #000;
+    padding-top: 10px;
+}
+
+/* Header Section */
+.main-header {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+}
+
+.brand {
+    font-size: 2.2rem;
+    font-weight: 900; /* Extra bold for the logo */
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+}
+
+.issue-info {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    font-size: 4.5rem;
+    margin: 10px 0;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 0.9;
+}
+
+h2 {
+    font-weight: 800;
+    font-size: 2rem;
+    margin-top: 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+/* Story Content Styling */
+.story-content p, .story-text p {
+    font-weight: 400; /* Regular weight for body text */
+    font-size: 1.05rem;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.quote {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin: 15px 0;
+    font-style: italic;
+}
+
+.read-more {
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 2px solid #000;
+    transition: 0.2s;
+}
+
+.read-more:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Horizontal Rule for a cleaner look */
+hr {
+    border: 0;
+    border-top: 2px solid #000;
+    margin: 25px 0;
+}
+
+/* Layout remains the same as previous code */
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.story-grid-alt {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+.story-grid-rev {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+}
+
+img {
+    width: 100%;
+    filter: grayscale(100%); /* Optional: gives it a classy b&w news look */
+    transition: 0.3s;
+}
+
+img:hover {
+    filter: grayscale(0%);
+}
