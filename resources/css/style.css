@@ -40,6 +40,20 @@ h2 {
     opacity: 0.9;
 }
 
+h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: orange;
+    color: black;
+    font-weight: 800;
+}
+
+.container h3 em {
+    font-size: 0.85em; /* Adjust this value to get the size just right */
+    font-style: italic; /* Ensures they both look like 'emphasis' text */
+    color: rgb(43, 40, 40);
+}
+
 /* Fix for ALL images (including your puzzle) */
 img {
     max-width: 100%;
