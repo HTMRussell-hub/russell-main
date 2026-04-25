@@ -8,7 +8,12 @@
 </head>
 <body>
 <h3>Skeuomorphic Button</h3>
-<button class="skeuomorphic-button" id="youtubeButton" title="Leaves Webpage and Goes to My Youtube Channel">Goes to My Youtube Channel</button>
+<button class="skeuomorphic-button" id="youtubeButton" title="Leaves Webpage and Goes to My Youtube Channel">Goes to My Youtube Channel</button><br>
+
+<h3>Simple Hover Button</h3>
+
+<button class ="hover-button" title="Ishkur's Guide to ELectronic Music!">Goes to the best website ever made!</button>
+
 
 <nav class="bottom-nav">
     <a href="./index.html" title="Back to Home">Home</a>
@@ -19,6 +24,11 @@
     
     button.addEventListener('click', function() {
         window.location.href = 'https://youtube.com/@TnRinVegas';
+    });
+
+    cont button2 = document.querySelector('.hover-button');
+    button2.addEventListener('click', function() {
+        window.location.href = 'https://music.ishkur.com/';
     });
 </script>
 

@@ -75,3 +75,24 @@ h3 {
     opacity: 1;
     text-decoration: underline;
 }
+
+/* New Hover Button */
+.hover-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hover-button:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+
+.hover-button:active {
+    background-color: #e03e00;
+    color: #fff;
+}
