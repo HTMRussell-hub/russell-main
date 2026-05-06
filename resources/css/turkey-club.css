@@ -1,0 +1,168 @@
+/* CSS Stylesheet for The Turkey Jerky Club */
+
+:root {
+    --bg-overlay: rgba(200, 220, 240, 0.85);
+    --text-color: #005696;
+    --accent-dark: #000000;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "p22-posada-regular", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-image: url('../images/turkey-jerky/turkey-background.jpeg'); /* The main background image */
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.banner {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-block {
+    background-color: var(--bg-overlay);
+    padding: 1.5rem;
+    border-radius: 2px;
+}
+
+h2 {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+ul li {
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.image-wrapper {
+    width: 100%;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.turkey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+}
+
+.nav-links {
+    background-color: var(--accent-dark);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    border-bottom: 2px solid white;
+    padding-bottom: 0.2rem;
+    width: fit-content;
+}
+
+.humanity-seal {
+    width: 400px;
+    margin-left: 1rem;
+}
+
+.seal-img {
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+}
+
+/* RESPONSIVE DESIGN RULES */
+
+/* Tablets and larger screens */
+@media screen and (min-width: 768px) {
+    .main-container {
+        padding: 3rem;
+    }
+
+    .info-block {
+        padding: 2.5rem;
+    }
+
+    /* Toggle image width to a specific percentage for larger viewports */
+    .responsive-img {
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .nav-links a {
+        font-size: 2.5rem;
+    }
+}
+
+/* Desktop sizing */
+@media screen and (min-width: 1024px) {
+    .main-container {
+        max-width: 800px;
+    }
+    
+    /* Using rem and em for spacing and sizing as requested */
+    h2 {
+        font-size: 2.2rem;
+    }
+    
+    p {
+        font-size: 1.2rem;
+    }
+}
+turkey_jerky_club/style.css
+Displaying turkey_jerky_club/style.css.
