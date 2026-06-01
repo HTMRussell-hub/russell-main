@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmanuel Pines 2026</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0; }
+        .container { text-align: center; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input { padding: 10px; font-size: 16px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="gate">
+        <h1>Welcome</h1>
+        <p>To enter this site, please enter the address number of your church.</p>
+        <input type="number" id="pinInput" placeholder="Enter 4-digit PIN">
+        <br>
+        <button onclick="checkPin()">Submit</button>
+    </div>
+
+    <div class="container" id="content" style="display:none;">
+        <h1>New Song Emmanuel Pines 2026 Shared Photo Album</h1>
+        <p>Welcome! We are so glad you are here to view and share photos from our trip to Emmanuel Pines.</p>
+        <p>Please use the link below to view or upload your favorite photos from the event to our shared Google Drive folder:</p>
+        <a href="https://drive.google.com/drive/folders/1UAthkjTnPgr5RhFIkENhFYa791HDsC2z?usp=drive_link" target="_blank">
+            <button style="background-color: #28a745;">Go to Shared Album</button>
+        </a>
+    </div>
+
+    <script>
+        function checkPin() {
+            const input = document.getElementById('pinInput').value;
+            if (input === "1291") {
+                document.getElementById('gate').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } else {
+                alert("Incorrect address. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
