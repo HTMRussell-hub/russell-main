@@ -10,7 +10,7 @@
     <h1>Russell's Dev Page</h1>
     <h2>Fake Websites I Made</h2>
     <ul>
-        <li><a href="./soap-box-radio.html" title="Goes to 530AM Center Soapbox Radio Fake Website">530AM Center Soapbox Radio</a></li>
+        <li><a href="./soap-box-radio.html" title="Goes to 530AM Center Soapbox Radio Fake Website">530AM Center Soapbox Radio</a> <button id="soapBoxButton" class="hover-button" style="margin-left: 15px; padding: 6px 12px; font-size: 1rem;">New!!!</button></li>
         <li><a href="./falcon-security.html" title="Goes to Falcon Security Systems Fake Website">Falcon Security Systems</a></li>
         <li><a href="./turkey-club.html" title="Goes to The Turkey Jerky Club Fake Website">The Turkey Jerky Club</a></li>
     </ul>
@@ -22,7 +22,7 @@
 
 <h3>Cool Website I didn't Make</h3>
 
-<button class ="hover-button" title="Ishkur's Guide to ELectronic Music!">Goes to the best website ever made!</button>
+<button id="ishkurButton" class ="hover-button" title="Ishkur's Guide to ELectronic Music!">Goes to the best website ever made!</button>
 
 
 <nav class="bottom-nav">
@@ -36,9 +36,13 @@
         window.location.href = 'https://youtube.com/@TnRinVegas';
     });
 
-    // Fix: Changed 'cont' to 'const'
-    const button2 = document.querySelector('.hover-button');
-    button2.addEventListener('click', function() {
+    const soapBoxBtn = document.getElementById('soapBoxButton');
+    soapBoxBtn.addEventListener('click', function() {
+        window.location.href = './soap-box-radio.html';
+    });
+
+    const ishkurBtn = document.getElementById('ishkurButton');
+    ishkurBtn.addEventListener('click', function() {
         window.location.href = 'https://music.ishkur.com/';
     });
 </script>
