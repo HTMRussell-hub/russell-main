@@ -98,3 +98,12 @@ a:hover {
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
+
+ul li a {
+    transition: color 0.3s ease;
+}
+
+ul li a:hover {
+    color: orange;
+    cursor: pointer;
+}
