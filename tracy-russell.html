@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracy and Russell's Shared Albums</title>
+    <style>
+        /* 1. RESET & BASE STYLES */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Sets the beautiful watercolor image as a full-screen, fixed background */
+            background-image: url('./resources/images/tracy-russell/background-tracy-russell.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 2. BANNER STYLES */
+        .banner-container {
+            width: 100%;
+            max-width: 1200px; /* Limits width on ultra-wide screens */
+            margin-bottom: 40px;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 3. ALBUM GRID SYSTEM */
+        .album-grid {
+            display: grid;
+            /* Creates a dynamic layout that defaults to 3 columns on desktop, */
+            /* but handles 2 items beautifully and shrinks safely on mobile */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+            gap: 40px; 
+            width: 90%;
+            max-width: 1050px; /* Fits exactly three 300px columns + gaps */
+            justify-content: center; /* Centers the 2 current items */
+            padding-bottom: 50px;
+        }
+
+        /* 4. ALBUM ITEM & HOVER EFFECTS */
+        .album-card {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Keeps the buttons perfectly square */
+            overflow: hidden;
+            border-radius: 4px; /* Subtle crisp edge matching your mockup */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Smooth interactive lift when hovering over an album */
+        .album-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .album-btn-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the square cleanly */
+            display: block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="banner-container">
+        <img src="./resources/images/tracy-russell/banner-tracy-russell.jpg" alt="Tracy and Russell's Shared Albums" class="banner-img">
+    </header>
+
+    <main class="album-grid">
+        
+        <a href="https://drive.google.com/drive/folders/1ZkX-wFLjn-pgyD14sqzOAH8RpOGGlMnK?usp=sharing" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="album-card"
+           data-album="Grand Canyon">
+            <img src="./resources/images/tracy-russell/grandcanyon.jpg" alt="Grand Canyon Album" class="album-btn-img">
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1vfiaKKcBYOn3xb4gptDulRRw2QayQwUZ?usp=sharing" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="album-card"
+           data-album="Prescott">
+            <img src="./resources/images/tracy-russell/prescott.jpg" alt="Prescott Album" class="album-btn-img">
+        </a>
+
+    </main>
+
+    <script>
+        // Optional JavaScript: Log album clicks for verification or future analytics tracking
+        document.querySelectorAll('.album-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const albumName = card.getAttribute('data-album');
+                console.log(`Navigating to Google Drive for: ${albumName}`);
+            });
+        });
+    </script>
+
+</body>
+</html>
