@@ -1,0 +1,173 @@
+/* Reset basic margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Uses the clean background image without the built-in banner */
+    background-image: url('../images/wedding/weddingBackground2.jpeg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: repeat-y;
+    min-height: 100vh;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #2b2b2b;
+    line-height: 1.6;
+}
+
+/* Main wrapper container */
+.wedding-container {
+    width: 100%;
+    max-width: 850px; /* Increased to accommodate the wider banner */
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+/* Header container for the standalone banner image */
+.wedding-header {
+    width: 100%;
+    padding: 25px 20px 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-img {
+    width: 100%;
+    max-width: 825px; /* 550px multiplied by 1.5 */
+    height: auto;
+    display: block;
+    /* Darkens the outline and text */
+    filter: contrast(185%) brightness(85%);
+}
+
+/* Main content area for text blocks and photo */
+.wedding-content {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Distinct card styling to cleanly separate sections */
+.content-block {
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(138, 92, 145, 0.2);
+    box-shadow: 0 8px 25px rgba(74, 40, 78, 0.12);
+    overflow: hidden;
+    text-align: center;
+    backdrop-filter: blur(4px);
+}
+
+/* Intro card padding wrapper */
+.content-block.intro-card {
+    padding: 25px 20px;
+}
+
+/* Body content padding inside each structured section card */
+.card-body {
+    padding: 20px;
+}
+
+/* Professional Section Headers */
+.section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #5b3260, #4a284e);
+    color: #fff;
+    padding: 12px 15px;
+    margin: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Specific text styles */
+.intro-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #4a284e;
+}
+
+.couple-names {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #331536;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.body-copy {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.warning-text {
+    font-weight: bold;
+    color: #990000;
+    font-style: italic;
+    background: rgba(255, 0, 0, 0.04);
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #990000;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.sub-section-title {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #4a284e;
+    margin-bottom: 8px;
+    text-decoration: underline;
+}
+
+/* Photo frame styling */
+.photo-frame {
+    width: 90%;
+    max-width: 440px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin: 0 auto 20px auto;
+    border: 1px solid rgba(74, 40, 78, 0.1);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+/* RSVP section spacing */
+.rsvp-section {
+    margin-bottom: 20px;
+}
+
+/* Responsive Google Form RSVP container styling */
+.rsvp-iframe-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Sets a clean proportional viewing window */
+    min-height: 1450px; 
+}
+
+.rsvp-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
