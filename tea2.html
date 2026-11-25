@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moon Phase Online Tea Calendar</title>
+  <style>
+    :root {
+      --gold: #f0c84b;
+      --gold-glow: rgba(240, 200, 75, 0.45);
+      --glass-bg: rgba(16, 30, 54, 0.58);
+      --glass-border: rgba(165, 200, 255, 0.24);
+      --card-bg: rgba(11, 20, 38, 0.94);
+      --text-main: #f4f7fc;
+      --text-muted: #a9bddb;
+      --accent-green: #6ee7b7;
+      --accent-herb: #c4b5fd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      background-color: #050b18;
+      background-image: url('./resources/images/tea/nightskybetter.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.85rem, 3.6vw, 3.1rem);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 24px rgba(240, 200, 75, 0.35);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 720px;
+      margin: 0 auto 14px;
+    }
+
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      background: rgba(13, 27, 50, 0.78);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(6px);
+    }
+
+    .pill strong {
+      color: var(--gold);
+    }
+
+    .btn-jump {
+      background: rgba(240, 200, 75, 0.16);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-jump:hover {
+      background: rgba(240, 200, 75, 0.3);
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    @media (max-width: 1050px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--glass-bg);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 720px) {
+      .calendar-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .day-cell {
+      position: relative;
+      min-height: 122px;
+      padding: 10px 8px;
+      border-right: 1px solid rgba(165, 200, 255, 0.18);
+      border-bottom: 1px solid rgba(165, 200, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-align: center;
+    }
+
+    .day-cell.row-mid {
+      background: rgba(145, 178, 218, 0.14);
+    }
+
+    .day-cell:hover {
+      background: rgba(240, 200, 75, 0.14);
+      z-index: 2;
+    }
+
+    .day-cell.selected {
+      background: rgba(240, 200, 75, 0.2);
+      box-shadow: inset 0 0 0 2px var(--gold);
+      z-index: 3;
+    }
+
+    .day-cell.today {
+      box-shadow: inset 0 0 0 2px #38bdf8, 0 0 18px rgba(56, 189, 248, 0.45);
+    }
+
+    .day-cell.today.selected {
+      box-shadow: inset 0 0 0 2px var(--gold), 0 0 20px var(--gold-glow);
+    }
+
+    .cell-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .day-num {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .today-badge {
+      background: #0284c7;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .moon-icon {
+      width: 46px;
+      height: 46px;
+      margin: 4px 0;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 230, 0.25));
+    }
+
+    .cell-tea-preview {
+      font-size: 0.72rem;
+      line-height: 1.25;
+      color: #e2e8f0;
+      font-weight: 500;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .detail-panel {
+      background: var(--card-bg);
+      border: 1px solid rgba(240, 200, 75, 0.4);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .panel-moon {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .panel-phase-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .panel-title {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      color: #fff;
+      margin-top: 2px;
+    }
+
+    .tea-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .tea-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .tea-slot-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag-day {
+      background: rgba(110, 231, 183, 0.16);
+      color: var(--accent-green);
+      border: 1px solid rgba(110, 231, 183, 0.35);
+    }
+
+    .tag-evening {
+      background: rgba(196, 181, 253, 0.16);
+      color: var(--accent-herb);
+      border: 1px solid rgba(196, 181, 253, 0.35);
+    }
+
+    .tea-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .tea-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin: 4px 0 8px;
+    }
+
+    .ingredient-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      background: rgba(15, 35, 66, 0.9);
+      border: 1px solid rgba(148, 184, 235, 0.25);
+      color: #dbeafe;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .focus-box {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      background: rgba(240, 200, 75, 0.08);
+      border-left: 3px solid var(--gold);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <h1>Moon Phase Online Tea Calendar</h1>
+      <p class="subtitle">
+        A 28-day botanical rotation designed to nourish your body with dozens of diverse herbs, roots, mushrooms, and tea leaves across every lunar cycle.
+      </p>
+<div class="status-bar">
+        <div class="pill" id="today-status">Calculating lunar phase...</div>
+        <button class="btn-jump" id="jump-today-btn">Jump to Today's Moon</button>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <section class="calendar-grid" id="calendar-grid" aria-label="28 Day Moon Tea Calendar"></section>
+      <aside class="detail-panel" id="detail-panel" aria-live="polite"></aside>
+    </main>
+  </div>
+
+  <script>
+    const TEA_CALENDAR = [
+      {
+        day: 1,
+        phase: "New Moon",
+        focus: "Renewal, gut microbiome reset & grounded energy",
+        dayTea: {
+          brand: "Numi",
+          name: "Chinese Breakfast",
+          type: "Black Tea",
+          caffeine: "High",
+          steep: "4–5 min",
+          ingredients: ["Golden-Tipped Organic Yunnan Black Tea Leaves"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Honeybush Vanilla Turmeric",
+          type: "Fermented Herbs with Probiotics",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Organic Honeybush", "Fermented Turmeric Root", "Vanilla Extract", "DE111 Bacillus Subtilis Probiotic"]
+        }
+      },
+      {
+        day: 2,
+        phase: "Waxing Crescent",
+        focus: "Mental clarity, cerebral circulation & mucosal soothing",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Damiana Focus",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "8–10 min",
+          ingredients: ["Hibiscus", "Ginkgo", "Peppermint", "Spearmint", "Lion's Mane Extract", "Rosemary", "Licorice Root", "Damiana", "Marshmallow Root"]
+        }
+      },
+      {
+        day: 3,
+        phase: "Waxing Crescent",
+        focus: "Warming circulation, digestion & cognitive stamina",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Cardamon Cinnamon",
+          type: "Warm the Heart Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Cinnamon", "Ginger", "Cardamom", "Chicory", "Black Pepper", "Cloves", "Carob", "Star Anise"]
+        }
+      },
+      {
+        day: 4,
+        phase: "Waxing Crescent",
+        focus: "Clean antioxidant replenishment & calm alertness",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Rooibos Tea",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "5–6 min",
+          ingredients: ["Single-Origin Cederberg South African Rooibos"]
+        }
+      },
+      {
+        day: 5,
+        phase: "Waxing Crescent",
+        focus: "Liver support, cellular hydration & skin antioxidants",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Berry Aloe Tea",
+          type: "Herbal Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Apple", "Orange Peel", "Hibiscus", "Rose Hips", "Milk Thistle Seed", "Pitaya", "Lemongrass", "Aloe Leaf", "Sea Buckthorn Berry"]
+        }
+      },
+      {
+        day: 6,
+        phase: "Waxing Crescent",
+        focus: "Crisp digestive reset & gentle afternoon lift",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Moroccan Mint",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "5–6 min",
+          ingredients: ["Organic Egyptian Nana Mint Leaves"]
+        }
+      },
+      {
+        day: 7,
+        phase: "First Quarter",
+        focus: "Adaptogenic stress balance & nervous system calm",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Clarity and Calm",
+          type: "Super Adapt Herbal Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Organic Ashwagandha Root", "Lemon Balm Leaf", "Licorice Root", "Passionflower"]
+        }
+      },
+      {
+        day: 8,
+        phase: "Waxing Gibbous",
+        focus: "Weekly black tea ritual & deep berry polyphenols",
+        dayTea: {
+          brand: "Numi",
+          name: "Chinese Breakfast",
+          type: "Black Tea",
+          caffeine: "High",
+          steep: "4–5 min",
+          ingredients: ["Golden-Tipped Organic Yunnan Black Tea Leaves"]
+        },
+        eveningTea: {
+          brand: "RISHI",
+          name: "Blueberry Hibiscus",
+          type: "Organic Botanical Blend",
+          caffeine: "Caffeine-Free",
+          steep: "5 min",
+          ingredients: ["Organic Rooibos", "Hibiscus Flowers", "Elderberries", "Blueberries", "Schisandra Berries"]
+        }
+      },
+      {
+        day: 9,
+        phase: "Waxing Gibbous",
+        focus: "Post-meal digestion & aromatic respiratory support",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Orange Ginger Mint",
+          type: "After Meal Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Ginger", "Orange Bergamot Mint", "Lemon Thyme", "Anise Hyssop", "Anise Seeds", "Blackberry Leaves"]
+        }
+      },
+      {
+        day: 10,
+        phase: "Waxing Gibbous",
+        focus: "Gentle liver detox & digestive stimulation",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "Traditional Medicinals",
+          name: "Roasted Dandelion Root",
+          type: "Herbal Supplement",
+          caffeine: "Caffeine-Free",
+          steep: "10–15 min (covered)",
+          ingredients: ["Organic Roasted Dandelion Root"]
+        }
+      },
+      {
+        day: 11,
+        phase: "Waxing Gibbous",
+        focus: "Seasonal immune defense & warming anti-inflammatories",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "RISHI",
+          name: "Elderberry Healer",
+          type: "Botanical Blend",
+          caffeine: "Caffeine-Free",
+          steep: "4 min",
+          ingredients: ["Organic Ginger Root", "Organic Elderberries", "Hibiscus Flowers", "Licorice Root"]
+        }
+      },
+      {
+        day: 12,
+        phase: "Waxing Gibbous",
+        focus: "Nitric oxide blood flow, heart warmth & floral aromatics",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Republic Pink Chai",
+          type: "Adventurer's Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "7–10 min",
+          ingredients: ["Organic Cinnamon", "Rose Petals", "Cardamom", "Beetroot", "Star Anise", "Clove", "Natural Vanilla"]
+        }
+      },
+      {
+        day: 13,
+        phase: "Waxing Gibbous",
+        focus: "Reishi mushroom restoration & evening wind-down",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Calm",
+          type: "Super Shroom Restoring Tea",
+          caffeine: "Very Low",
+          steep: "5–7 min",
+          ingredients: ["Organic Reishi Mushroom", "Dandelion Root", "Rooibos", "Cocoa Powder", "Carob"]
+        }
+      },
+      {
+        day: 14,
+        phase: "Full Moon",
+        focus: "Full Moon peak: delicate white tea polyphenols & ginseng vitality",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Emperor's White",
+          type: "100% White Tea",
+          caffeine: "Low",
+          steep: "30–60 sec",
+          ingredients: ["Pure Fujian White Tea Leaves"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Ginseng Peppermint",
+          type: "Heaven Earth Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Eleuthero (Siberian Ginseng)", "Panax Ginseng", "Peppermint", "Cinnamon", "Licorice", "Schizandra Berries", "Sarsaparilla Root", "Echinacea Purpurea Root"]
+        }
+      },
+      {
+        day: 15,
+        phase: "Full Moon / Waning",
+        focus: "Weekly black tea & elderflower respiratory shield",
+        dayTea: {
+          brand: "Numi",
+          name: "Chinese Breakfast",
+          type: "Black Tea",
+          caffeine: "High",
+          steep: "4–5 min",
+          ingredients: ["Golden-Tipped Organic Yunnan Black Tea Leaves"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Immune Support",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "8–10 min",
+          ingredients: ["Organic Elderflower", "Elderberry Fruit", "Ginger Root", "Rosehip Fruit", "Lemongrass Stalk", "Thyme Leaf"]
+        }
+      },
+      {
+        day: 16,
+        phase: "Waning Gibbous",
+        focus: "Metabolic oolong polyphenols & creamy relaxation",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Double Milk Oolong Tea",
+          type: "Oolong Tea",
+          caffeine: "Low",
+          steep: "3–5 min",
+          ingredients: ["Fujian Oolong Tea Leaves", "Oolong Tea Powder", "Natural Flavors"]
+        }
+      },
+      {
+        day: 17,
+        phase: "Waning Gibbous",
+        focus: "Deep chamomile relaxation & broad floral-herb spectrum",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "Tazo",
+          name: "Calm Chamomile",
+          type: "Herbal Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5 min",
+          ingredients: ["Chamomile", "Hibiscus", "Spearmint", "Rose Petals", "Blackberry Leaves", "Lemongrass", "Peppermint", "Sarsaparilla", "Lemon Balm", "Licorice Root"]
+        }
+      },
+      {
+        day: 18,
+        phase: "Waning Gibbous",
+        focus: "Mineral replenishment & soothing evening hydration",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Rooibos Tea",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "5–6 min",
+          ingredients: ["Single-Origin Cederberg South African Rooibos"]
+        }
+      },
+      {
+        day: 19,
+        phase: "Waning Gibbous",
+        focus: "Throat & vocal cord soothing with sage and marshmallow root",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Throat Soother",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "8–10 min",
+          ingredients: ["Organic Sage Leaf", "Licorice Root", "Marshmallow Root", "Cinnamon Bark", "Clove Bud"]
+        }
+      },
+      {
+        day: 20,
+        phase: "Waning Gibbous",
+        focus: "Cooling stomach reset & mental sharpness",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Moroccan Mint",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "5–6 min",
+          ingredients: ["Organic Egyptian Nana Mint Leaves"]
+        }
+      },
+      {
+        day: 21,
+        phase: "Third Quarter",
+        focus: "Blue spirulina & bamboo micronutrients for cellular repair",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Lemon Balm Kiwi Tea",
+          type: "Beautifying Botanical",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Orange Peel", "Lemon Balm", "White Hibiscus", "Ginkgo", "Rose Hips", "Bamboo Leaf", "Lion's Mane", "Kiwi Fruit", "Safflower", "Blue Spirulina Algae"]
+        }
+      },
+      {
+        day: 22,
+        phase: "Waning Crescent",
+        focus: "Weekly black tea & waning-phase dandelion liver cleanse",
+        dayTea: {
+          brand: "Numi",
+          name: "Chinese Breakfast",
+          type: "Black Tea",
+          caffeine: "High",
+          steep: "4–5 min",
+          ingredients: ["Golden-Tipped Organic Yunnan Black Tea Leaves"]
+        },
+        eveningTea: {
+          brand: "Traditional Medicinals",
+          name: "Roasted Dandelion Root",
+          type: "Herbal Supplement",
+          caffeine: "Caffeine-Free",
+          steep: "10–15 min (covered)",
+          ingredients: ["Organic Roasted Dandelion Root"]
+        }
+      },
+      {
+        day: 23,
+        phase: "Waning Crescent",
+        focus: "Bright citrus-ginger circulation & digestive comfort",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "Teapigs",
+          name: "Lemon & Ginger",
+          type: "Herbal Infusion",
+          caffeine: "Caffeine-Free",
+          steep: "3–5 min",
+          ingredients: ["Ginger Root", "Lemongrass", "Lemon Peel", "Licorice Root", "Lemon Myrtle"]
+        }
+      },
+      {
+        day: 24,
+        phase: "Waning Crescent",
+        focus: "Curcumin + black pepper joint & inflammation recovery",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "Numi",
+          name: "Turmeric Amboy Sun",
+          type: "Herbal Tisane",
+          caffeine: "Caffeine-Free",
+          steep: "8–10 min",
+          ingredients: ["Madagascar Turmeric", "Rooibos", "Honeybush", "Cardamom", "Cinnamon", "Black Pepper"]
+        }
+      },
+      {
+        day: 25,
+        phase: "Waning Crescent",
+        focus: "Three varieties of Holy Basil (Tulsi) for cortisol balance",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "Organic India",
+          name: "Tulsi Hibiscus",
+          type: "Herbal Supplement",
+          caffeine: "Caffeine-Free",
+          steep: "10–12 min",
+          ingredients: ["Rama Holy Basil", "Krishna Holy Basil", "Vana African Basil", "Organic Hibiscus Flower"]
+        }
+      },
+      {
+        day: 26,
+        phase: "Waning Crescent",
+        focus: "Single-origin Trout Lake peppermint clarity",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Focus",
+          type: "Super Shroom Green Tea",
+          caffeine: "Low",
+          steep: "1–3 min",
+          ingredients: ["Organic Green Tea Leaf", "Peppermint Leaf", "Lion's Mane Extract", "Natural Lemon Flavor"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "American Peppermint",
+          type: "Super Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Organic Trout Lake Peppermint Leaves"]
+        }
+      },
+      {
+        day: 27,
+        phase: "Waning Crescent",
+        focus: "Warming autumn spices, pumpkin & dandelion root",
+        dayTea: {
+          brand: "The Republic of Tea",
+          name: "Brain Boost",
+          type: "Super Green Tea",
+          caffeine: "Low",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea Leaf", "Ginkgo Leaf", "Japanese Matcha Leaf", "Ginkgo Leaf Powder"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Pumpkin Pie Chai",
+          type: "Give Thanks Herb Tea",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Organic Cinnamon", "Ginger", "Roasted Dandelion Root", "Nutmeg", "Licorice Root", "Pumpkin", "Cloves"]
+        }
+      },
+      {
+        day: 28,
+        phase: "Dark Moon",
+        focus: "Lavender, butterfly pea flower & schisandra pre-New Moon rest",
+        dayTea: {
+          brand: "Tazo",
+          name: "Organic Zen",
+          type: "Green Tea",
+          caffeine: "Medium (31–45mg)",
+          steep: "3 min",
+          ingredients: ["Organic Green Tea", "Lemon Verbena", "Spearmint", "Lemongrass", "Lemon Oil"]
+        },
+        eveningTea: {
+          brand: "The Republic of Tea",
+          name: "Blueberry Lavender Tea",
+          type: "Beautifying Botanical",
+          caffeine: "Caffeine-Free",
+          steep: "5–7 min",
+          ingredients: ["Hibiscus", "Green Rooibos", "Blue Butterfly Pea Flower", "Lemongrass", "Rose Hips", "Apple", "Lavender", "Blackberry Leaves", "Lemon Balm", "Bamboo Leaf", "Blueberry", "Schisandra Extract"]
+        }
+      }
+    ];
+
+    function getCurrentLunarDay(date = new Date()) {
+      const SYNODIC_MONTH = 29.53058867;
+      const KNOWN_NEW_MOON = Date.UTC(2024, 0, 11, 11, 57, 0);
+      const daysSince = (date.getTime() - KNOWN_NEW_MOON) / (1000 * 60 * 60 * 24);
+      const cycleFraction = (((daysSince % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH) / SYNODIC_MONTH;
+      const lunarDay = Math.floor(cycleFraction * 28) + 1;
+      return Math.min(28, Math.max(1, lunarDay));
+    }
+
+    function createMoonSVG(day, className = "moon-icon") {
+      const r = 20;
+      const cx = 24;
+      const cy = 24;
+      let pathD = "";
+
+      if (day === 1 || day === 28) {
+        pathD = "";
+      } else if (day === 14 || day === 15) {
+        pathD = "M " + cx + " " + (cy - r) + " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy + r) + " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy - r);
+      } else if (day < 14) {
+        const p = (day - 1) / 13;
+        const k = Math.cos(p * Math.PI);
+        const rx = Math.abs(k) * r;
+        const sweepInner = k > 0 ? 0 : 1;
+        pathD = "M " + cx + " " + (cy - r) + " A " + r + " " + r + " 0 0 1 " + cx + " " + (cy + r) + " A " + rx + " " + r + " 0 0 " + sweepInner + " " + cx + " " + (cy - r);
+      } else {
+        const p = (day - 15) / 13;
+        const k = Math.cos(p * Math.PI);
+        const rx = Math.abs(k) * r;
+        const sweepInner = k > 0 ? 0 : 1;
+        pathD = "M " + cx + " " + (cy - r) + " A " + r + " " + r + " 0 0 0 " + cx + " " + (cy + r) + " A " + rx + " " + r + " 0 0 " + sweepInner + " " + cx + " " + (cy - r);
+      }
+
+      return `
+        <svg viewBox="0 0 48 48" class="${className}" aria-hidden="true">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="#070d19" stroke="rgba(226, 232, 240, 0.35)" stroke-width="1.2"/>
+          ${pathD ? `<path d="${pathD}" fill="#e8edf5" />` : ""}
+        </svg>
+      `;
+    }
+
+    const todayLunarDay = getCurrentLunarDay();
+    let selectedDay = todayLunarDay;
+
+    function updateStatus() {
+      const todayInfo = TEA_CALENDAR[todayLunarDay - 1];
+      document.getElementById("today-status").innerHTML =
+        `Today's Lunar Phase: <strong>Day ${todayLunarDay} (${todayInfo.phase})</strong>`;
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("calendar-grid");
+      grid.innerHTML = "";
+
+      TEA_CALENDAR.forEach((item, index) => {
+        const row = Math.floor(index / 7);
+        const isMidRow = row === 1 || row === 2;
+        const isToday = item.day === todayLunarDay;
+        const isSelected = item.day === selectedDay;
+
+        const cell = document.createElement("div");
+        cell.className = `day-cell ${isMidRow ? "row-mid" : ""} ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`;
+        cell.setAttribute("role", "button");
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("aria-label", `Day ${item.day}, ${item.phase}: ${item.eveningTea.name}`);
+
+        cell.innerHTML = `
+          <div class="cell-top">
+            <span class="day-num">Day ${item.day}</span>
+            ${isToday ? `<span class="today-badge">Today</span>` : ""}
+          </div>
+          ${createMoonSVG(item.day)}
+          <div class="cell-tea-preview">${item.eveningTea.name}</div>
+        `;
+
+        cell.addEventListener("click", () => {
+          selectedDay = item.day;
+          renderGrid();
+          renderDetailPanel();
+        });
+
+        cell.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            selectedDay = item.day;
+            renderGrid();
+            renderDetailPanel();
+          }
+        });
+
+        grid.appendChild(cell);
+      });
+    }
+
+    function renderDetailPanel() {
+      const panel = document.getElementById("detail-panel");
+      const data = TEA_CALENDAR[selectedDay - 1];
+      const isToday = selectedDay === todayLunarDay;
+
+      panel.innerHTML = `
+        <div class="panel-header">
+          ${createMoonSVG(data.day, "panel-moon")}
+          <div>
+            <div class="panel-phase-label">Day ${data.day} • ${data.phase} ${isToday ? "(Today)" : ""}</div>
+            <h2 class="panel-title">Daily Botanical Pairing</h2>
+          </div>
+        </div>
+
+        <div class="focus-box">
+          <strong>Lunar Focus:</strong> ${data.focus}
+        </div>
+
+        <div class="tea-block">
+          <span class="tea-slot-tag tag-day">Morning / Daily True Tea</span>
+          <div class="tea-name">${data.dayTea.name}</div>
+          <div class="tea-meta">${data.dayTea.brand} • ${data.dayTea.type} • Caffeine: ${data.dayTea.caffeine} • Steep: ${data.dayTea.steep}</div>
+          <div class="ingredient-chips">
+            ${data.dayTea.ingredients.map(ing => `<span class="chip">${ing}</span>`).join("")}
+          </div>
+        </div>
+
+        <div class="tea-block">
+          <span class="tea-slot-tag tag-evening">Evening / Herbal Rotation</span>
+          <div class="tea-name">${data.eveningTea.name}</div>
+          <div class="tea-meta">${data.eveningTea.brand} • ${data.eveningTea.type} • Caffeine: ${data.eveningTea.caffeine} • Steep: ${data.eveningTea.steep}</div>
+          <div class="ingredient-chips">
+            ${data.eveningTea.ingredients.map(ing => `<span class="chip">${ing}</span>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById("jump-today-btn").addEventListener("click", () => {
+      selectedDay = todayLunarDay;
+      renderGrid();
+      renderDetailPanel();
+    });
+
+    updateStatus();
+    renderGrid();
+    renderDetailPanel();
+  </script>
+</body>
+</html>
