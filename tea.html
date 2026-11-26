@@ -27,11 +27,15 @@
       min-height: 100vh;
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
       color: var(--text-main);
-      /* Deep starry night sky + subtle Milky Way glow (swap url() if using your own starry background image) */
+      /* Deep starry night sky + subtle Milky Way glow (swap url() if using your own starry background image) *
+      /*
       background:
         radial-gradient(ellipse at 20% 30%, rgba(56, 114, 189, 0.28) 0%, transparent 55%),
         radial-gradient(ellipse at 78% 68%, rgba(88, 130, 195, 0.24) 0%, transparent 55%),
         radial-gradient(circle at 50% 50%, #0d2244 0%, #050b18 75%, #02050c 100%);
+        */
+        background-image: url(./resources/images/tea/nightskybetter.png);
+  
       background-attachment: fixed;
       overflow-x: hidden;
       position: relative;
@@ -113,6 +117,26 @@
 
     .btn-jump:hover {
       background: rgba(240, 200, 75, 0.3);
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 24px 16px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-link {
+      color: #c91010;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .home-link:hover {
+      color: var(--gold);
     }
 
     /* Main Split Layout: 4x7 Calendar + Side Detail Panel */
