@@ -149,6 +149,28 @@ body {
     border-radius: 4px;
 }
 
+/* Registry button styling */
+.registry-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 12px 26px;
+    background: linear-gradient(135deg, #5b3260, #4a284e);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(74, 40, 78, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.registry-btn:hover {
+    background: linear-gradient(135deg, #6d3d73, #5b3260);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(74, 40, 78, 0.35);
+}
+
 /* RSVP section spacing */
 .rsvp-section {
     margin-bottom: 20px;
